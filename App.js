@@ -1,8 +1,10 @@
 ﻿import { useMemo, useState } from 'react';
+import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import HomeScreen from './screens/HomeScreen';
+import { store } from './redux/store';
 import AddTaskScreen from './screens/AddTaskScreen';
 import TaskDetailsScreen from './screens/TaskDetailsScreen';
 import ProgressScreen from './screens/ProgressScreen';
@@ -29,23 +31,25 @@ export default function App() {
   }), [tasks, progressValue, quote]);
 
   return (
-    <NavigationContainer>
-      <StatusBar style="dark" />
-      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerTitleAlign: 'center' }}>
-        <Stack.Screen name="Home">
-          {props => <HomeScreen {...props} {...screenProps} />}
-        </Stack.Screen>
-        <Stack.Screen name="Add Task">
-          {props => <AddTaskScreen {...props} tasks={tasks} setTasks={setTasks} />}
-        </Stack.Screen>
-        <Stack.Screen name="Task Details">
-          {props => <TaskDetailsScreen {...props} tasks={tasks} setTasks={setTasks} />}
-        </Stack.Screen>
-        <Stack.Screen name="Progress">
-          {props => <ProgressScreen {...props} progressValue={progressValue} tasks={tasks} />}
-        </Stack.Screen>
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StatusBar style="dark" />
+        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerTitleAlign: 'center' }}>
+          <Stack.Screen name="Home">
+            {props => <HomeScreen {...props} {...screenProps} />}
+          </Stack.Screen>
+          <Stack.Screen name="Add Task">
+            {props => <AddTaskScreen {...props} tasks={tasks} setTasks={setTasks} />}
+          </Stack.Screen>
+          <Stack.Screen name="Task Details">
+            {props => <TaskDetailsScreen {...props} tasks={tasks} setTasks={setTasks} />}
+          </Stack.Screen>
+          <Stack.Screen name="Progress">
+            {props => <ProgressScreen {...props} progressValue={progressValue} tasks={tasks} />}
+          </Stack.Screen>
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
