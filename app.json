@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "StudyTrackr",
+    "slug": "studytrackr",
+    "version": "1.0.0",
+    "sdkVersion": "48.0.0",
+    "platforms": ["android", "ios", "web"],
+    "orientation": "portrait",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
